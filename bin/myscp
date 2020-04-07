@@ -1,0 +1,33 @@
+#!/bin/bash
+UN=pi
+IDX=`echo $1 | grep -b -o : | awk 'BEGIN {FS=":"}{print $1}'`
+
+if [ -z $IDX ]; then
+	SRC=$1
+else
+	HOST="${1:0:$IDX}"
+	if [ $HOST -eq 62 ]; then
+		UN=shan
+	fi
+	SRC="$UN@192.168.168.$1"
+	ssh-copy-id $UN@192.168.168.$HOST 2>/dev/null
+fi
+
+IDX=`echo $2 | grep -b -o : | awk 'BEGIN {FS=":"}{print $1}'`
+if [ -z $IDX ]; then
+	DST=$2
+else
+	HOST="${2:0:$IDX}"
+	if [ $HOST -eq 62 ]; then
+		UN=shan
+	fi
+	DST="$UN@192.168.168.$2"
+	ssh-copy-id $UN@192.168.168.$HOST 2>/dev/null
+fi
+
+scp $SRC $DST
+if [ $? -eq 0 ]; then
+	echo scp from $SRC to $DST successfully.
+fi
+
+

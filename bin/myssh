@@ -1,0 +1,12 @@
+#!/bin/bash
+
+HOST=$1
+if [ $HOST -eq 62 ]; then
+	UN=shan
+else
+	UN=pi
+fi
+
+ssh-copy-id $UN@192.168.168.$HOST 2>/dev/null
+ssh $UN@192.168.168.$HOST 
+
