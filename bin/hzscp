@@ -1,7 +1,7 @@
 #!/bin/bash
 UN=pi
-IDX=`echo $1 | grep -b -o : | awk 'BEGIN {FS=":"}{print $1}'`
 
+IDX=`echo $1 | grep -b -o : | awk 'BEGIN {FS=":"}{print $1}'`
 if [ -z $IDX ]; then
 	SRC=$1
 else
@@ -18,7 +18,7 @@ if [ -z $IDX ]; then
 	DST=$2
 else
 	HOST="${2:0:$IDX}"
-	if [ $HOST -eq 62 ]; then
+	if [ $HOST -eq 128 ]; then
 		UN=shan
 	fi
 	DST="$UN@192.168.168.$2"

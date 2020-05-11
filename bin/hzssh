@@ -1,12 +1,19 @@
 #!/bin/bash
 
 HOST=$1
-if [ $HOST -eq 62 ]; then
+if [ $HOST -eq 128 ]; then
 	UN=shan
 else
 	UN=pi
 fi
 
 ssh-copy-id $UN@192.168.168.$HOST 2>/dev/null
+echo $?
+if [ $? -eq 1 ]
+then
+	ssh-keygen -f "~/.ssh/known_hosts" -R 192.168.168.$HOST
+	ssh-copy-id $UN@192.168.168.$HOST 2>/dev/null
+fi
+
 ssh $UN@192.168.168.$HOST 
 
